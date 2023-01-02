@@ -27,17 +27,7 @@ final class SearchResultCell: UICollectionViewCell {
         return label
     }()
     
-    private let getButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("GET", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 14)
-        button.backgroundColor = .systemGray5
-        button.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 32).isActive = true
-        button.layer.cornerRadius = 16
-        return button
-    }()
+    private let getButton = GetButton()
     
     private let categoryLabel: UILabel = {
         let label = UILabel()
