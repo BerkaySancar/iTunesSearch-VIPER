@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 final class AppsRowCell: UICollectionViewCell {
     
@@ -24,14 +25,12 @@ final class AppsRowCell: UICollectionViewCell {
     
     private lazy var appNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "App Name"
         label.font = .systemFont(ofSize: 20)
         return label
     }()
     
     private lazy var companyNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Company Name"
         label.font = .systemFont(ofSize: 13)
         return label
     }()
@@ -47,8 +46,8 @@ final class AppsRowCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+// MARK: - Configure & Design UI
     private func configureUIElements() {
-        
         let stackView = UIStackView(arrangedSubviews: [appImageView,
                                                        VerticalStackView(arrangedSubviews: [appNameLabel, companyNameLabel]),
                                                        getButton])
@@ -58,6 +57,11 @@ final class AppsRowCell: UICollectionViewCell {
         
         addSubview(stackView)
         stackView.anchor(top: self.topAnchor, leading: self.leftAnchor, trailing: self.rightAnchor, bottom: self.bottomAnchor)
-        
+    }
+    
+    internal func desing(app: FeedResult) {
+        self.appNameLabel.text = app.name
+        self.companyNameLabel.text = app.artistName
+        self.appImageView.sd_setImage(with: URL(string: app.artworkUrl100))
     }
 }

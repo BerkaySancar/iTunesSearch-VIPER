@@ -13,18 +13,21 @@ final class AppsGroupCell: UICollectionViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "App Section"
         label.font = .boldSystemFont(ofSize: 30)
         return label
     }()
     
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
+        let layout = SnappingLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.decelerationRate = .fast
+        collectionView.contentInset = .init(top: 12, left: 16, bottom: 12, right: 16)
         return collectionView
     }()
     
+    private var apps: [FeedResult] = []
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -35,6 +38,7 @@ final class AppsGroupCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+// MARK: - Configure & Design UI
     private func configureUIElements() {
         configureTitleLabel()
         configureCollectionView()
@@ -52,30 +56,33 @@ final class AppsGroupCell: UICollectionViewCell {
         self.collectionView.register(AppsRowCell.self, forCellWithReuseIdentifier: AppsRowCell.identifier)
         self.collectionView.anchor(top: titleLabel.bottomAnchor, leading: self.leftAnchor, trailing: self.rightAnchor, bottom: self.bottomAnchor)
     }
+    
+    internal func design(appGroup: AppGroup) {
+        self.titleLabel.text = appGroup.feed.title
+        self.apps = appGroup.feed.results
+        self.collectionView.reloadData()
+    }
 }
 
+// MARK: - CollectionView Delegate & DataSource
 extension AppsGroupCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 13
+        return apps.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsRowCell.identifier, for: indexPath) as? AppsRowCell else { return UICollectionViewCell() }
+        cell.desing(app: self.apps[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = (collectionView.frame.height - 2 * 12 - 2 * 10) / 3
+        let height = (collectionView.frame.height - 2 * 12 - 2 * 10) / 3.5
         return .init(width: collectionView.frame.width - 48, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 12, left: 16, bottom: 12, right: 16)
-    }
-    
 }

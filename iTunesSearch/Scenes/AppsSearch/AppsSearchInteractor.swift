@@ -30,7 +30,7 @@ final class AppsSearchInteractor: AppsSearchInteractorProtocol {
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
             guard let self else { return }
             self.delegate?.beginRefreshing()
-            self.service.fetchApps(searchTerm: searchTerm) { [weak self] results in
+            self.service.fetchSearchedApps(searchTerm: searchTerm) { [weak self] results in
                 guard let self else { return }
                 self.delegate?.endRefreshing()
                 switch results {
