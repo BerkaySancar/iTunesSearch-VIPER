@@ -11,6 +11,7 @@ protocol AppsSearchPresenterProtocol: AnyObject {
     
     func viewDidLoad()
     func searchTextDidChange(text: String)
+    func didTapCellItem(id: Int)
 }
 
 protocol AppsSearchInteractorOutputs: AnyObject {
@@ -41,6 +42,10 @@ final class AppsSearchPresenter: AppsSearchPresenterProtocol {
     
     func searchTextDidChange(text: String) {
         self.interactor.getData(searchTerm: text)
+    }
+    
+    func didTapCellItem(id: Int) {
+        self.router.toDetail(appId: id)
     }
 }
 

@@ -32,6 +32,7 @@ final class PreviewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+// MARK: - Configure & Design UI
     private func configureUiElements() {
         addSubview(previewLabel)
         self.previewLabel.anchor(top: topAnchor, leading: leftAnchor, trailing: rightAnchor, bottom: nil, padding: .init(top: 0, left: 20, bottom: 0, right: 0))
@@ -45,6 +46,7 @@ final class PreviewCell: UICollectionViewCell {
     
     internal func design(app: AppResult) {
         self.app = app
+        self.collectionView.reloadData()
     }
 }
 

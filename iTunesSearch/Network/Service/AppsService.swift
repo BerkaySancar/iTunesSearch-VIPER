@@ -13,6 +13,7 @@ protocol AppsServiceProtocol {
     func fetchGroupApps(completion: @escaping (Result<[AppGroup]?, ServiceError>) -> Void)
     func fetchSocialApps(completion: @escaping (Result<[SocialApp]?, ServiceError>) -> Void)
     func fetchAppDetail(id: String, completion: @escaping (Result<AppResult, ServiceError>) -> Void)
+    func fetchCustomerReviews(id: String, completion: @escaping (Result<Reviews, ServiceError>) -> Void)
 }
 
 final class AppsService {
@@ -109,6 +110,20 @@ extension AppsService: AppsServiceProtocol {
             switch results {
             case .success(let app):
                 completion(.success(app))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func fetchCustomerReviews(id: String, completion: @escaping (Result<Reviews, ServiceError>) -> Void) {
+        
+        let url = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(id)/sortby=mostrecent/json?l=en&cc=us"
+        
+        NetworkManager.shared.sendRequest(type: Reviews.self, url: url, httpMethod: "GET") { results in
+            switch results {
+            case .success(let review):
+                completion(.success(review))
             case .failure(let error):
                 completion(.failure(error))
             }

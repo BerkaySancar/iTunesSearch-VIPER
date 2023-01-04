@@ -10,6 +10,7 @@ import UIKit
 
 protocol AppsSearchRouterProtocol: AnyObject {
     
+    func toDetail(appId: Int)
 }
 
 final class AppsSearchRouter: AppsSearchRouterProtocol {
@@ -18,5 +19,10 @@ final class AppsSearchRouter: AppsSearchRouterProtocol {
     
     init(view: UIViewController) {
         self.view = view
+    }
+    
+    func toDetail(appId: Int) {
+        let detailVC = AppDetailBuilder.start(id: String(appId))
+        self.view?.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

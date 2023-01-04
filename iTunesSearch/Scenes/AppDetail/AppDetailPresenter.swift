@@ -10,6 +10,7 @@ import Foundation
 protocol AppDetailPresenterProtocol: AnyObject {
     
     var app: AppResult? { get }
+    var reviews: Reviews? { get }
     
     func viewDidLoad()
 }
@@ -18,7 +19,8 @@ protocol AppDetailInteractorOutputs: AnyObject {
     func beginRefreshing()
     func endRefreshing()
     func onError(message: String)
-    func loadApp(app: AppResult)
+    func showApp(app: AppResult)
+    func showReviews(reviews: Reviews)
 }
 
 final class AppDetailPresenter: AppDetailPresenterProtocol {
@@ -28,6 +30,7 @@ final class AppDetailPresenter: AppDetailPresenterProtocol {
     private let interactor: AppDetailInteractorProtocol
     
     private(set) internal var app: AppResult?
+    private(set) internal var reviews: Reviews?
     
     init(view: AppDetailViewProtocol, router: AppDetailRouterProtocol, interactor: AppDetailInteractorProtocol) {
         self.view = view
@@ -39,6 +42,7 @@ final class AppDetailPresenter: AppDetailPresenterProtocol {
     func viewDidLoad() {
         self.view?.prepareCollectionView()
         self.interactor.getDetail()
+        self.interactor.getReviews()
     }
 }
 
@@ -56,8 +60,13 @@ extension AppDetailPresenter: AppDetailInteractorOutputs {
         self.view?.onError(message: message)
     }
     
-    func loadApp(app: AppResult) {
+    func showApp(app: AppResult) {
         self.app = app
+        self.view?.dataRefreshed()
+    }
+    
+    func showReviews(reviews: Reviews) {
+        self.reviews = reviews
         self.view?.dataRefreshed()
     }
 }

@@ -44,6 +44,7 @@ extension AppDetailViewController: AppDetailViewProtocol {
         self.collectionView.dataSource = self
         self.collectionView.register(AppDetailCell.self, forCellWithReuseIdentifier: AppDetailCell.identifier)
         self.collectionView.register(PreviewCell.self, forCellWithReuseIdentifier: PreviewCell.identifier)
+        self.collectionView.register(ReviewRowCell.self, forCellWithReuseIdentifier: ReviewRowCell.identifier)
         self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leftAnchor, trailing: view.rightAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor)
     }
     
@@ -70,7 +71,7 @@ extension AppDetailViewController: AppDetailViewProtocol {
 extension AppDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -80,10 +81,16 @@ extension AppDetailViewController: UICollectionViewDelegate, UICollectionViewDat
                 cell.design(app: app)
             }
             return cell
-        } else {
+        } else if indexPath.item == 1 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCell.identifier, for: indexPath) as? PreviewCell else { return UICollectionViewCell() }
             if let app = presenter.app {
                 cell.design(app: app)
+            }
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewRowCell.identifier, for: indexPath) as? ReviewRowCell else { return UICollectionViewCell() }
+            if let reviews = presenter.reviews {
+                cell.design(reviews: reviews)
             }
             return cell
         }
@@ -101,12 +108,18 @@ extension AppDetailViewController: UICollectionViewDelegate, UICollectionViewDat
             // Dynamic size for cell
             
             return CGSize(width: view.frame.width, height: estimatedSize.height)
-        } else {
+        } else if indexPath.item == 1 {
             return .init(width: view.frame.width, height: 500)
+        } else {
+            return .init(width: view.frame.width, height: 280)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 32
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 0, left: 0, bottom: 16, right: 0)
     }
 }
