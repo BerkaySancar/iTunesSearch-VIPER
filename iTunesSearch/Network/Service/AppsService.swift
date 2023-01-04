@@ -12,6 +12,8 @@ protocol AppsServiceProtocol {
     func fetchSearchedApps(searchTerm: String, completion: @escaping (Result<[App], ServiceError>) -> Void)
     func fetchGroupApps(completion: @escaping (Result<[AppGroup]?, ServiceError>) -> Void)
     func fetchSocialApps(completion: @escaping (Result<[SocialApp]?, ServiceError>) -> Void)
+    func fetchAppDetail(id: String, completion: @escaping (Result<AppResult, ServiceError>) -> Void)
+    func fetchCustomerReviews(id: String, completion: @escaping (Result<Reviews, ServiceError>) -> Void)
 }
 
 final class AppsService {
@@ -28,7 +30,7 @@ extension AppsService: AppsServiceProtocol {
     func fetchSearchedApps(searchTerm: String, completion: @escaping (Result<[App], ServiceError>) -> Void) {
         let url = "https://itunes.apple.com/search?term=\(searchTerm)&entity=software"
         
-        NetworkManager.shared.sendRequest(type: SearchResult.self, url: url, httpMethod: "GET") { results in
+        NetworkManager.shared.sendRequest(type: AppResult.self, url: url, httpMethod: "GET") { results in
             switch results {
             case .success(let apps):
                 completion(.success(apps.results))
@@ -93,6 +95,35 @@ extension AppsService: AppsServiceProtocol {
             switch results {
             case .success(let apps):
                 completion(.success(apps))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+// MARK: - fetchAppDetail
+    func fetchAppDetail(id: String, completion: @escaping (Result<AppResult, ServiceError>) -> Void) {
+        
+        let url = "https://itunes.apple.com/lookup?id=\(id)"
+        
+        NetworkManager.shared.sendRequest(type: AppResult.self, url: url, httpMethod: "GET") { results in
+            switch results {
+            case .success(let app):
+                completion(.success(app))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func fetchCustomerReviews(id: String, completion: @escaping (Result<Reviews, ServiceError>) -> Void) {
+        
+        let url = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(id)/sortby=mostrecent/json?l=en&cc=us"
+        
+        NetworkManager.shared.sendRequest(type: Reviews.self, url: url, httpMethod: "GET") { results in
+            switch results {
+            case .success(let review):
+                completion(.success(review))
             case .failure(let error):
                 completion(.failure(error))
             }

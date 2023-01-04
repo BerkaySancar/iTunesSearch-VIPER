@@ -10,6 +10,7 @@ import UIKit
 
 protocol AppsRouterProtocol: AnyObject {
     
+    func toDetail(id: String)
 }
 
 final class AppsRouter: AppsRouterProtocol {
@@ -18,5 +19,10 @@ final class AppsRouter: AppsRouterProtocol {
     
     init(view: UIViewController) {
         self.view = view
+    }
+    
+    func toDetail(id: String) {
+        let detailVC = AppDetailBuilder.start(id: id)
+        self.view?.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

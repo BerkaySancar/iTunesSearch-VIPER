@@ -10,6 +10,7 @@ import Foundation
 protocol AppsPresenterProtocol: AnyObject {
     
     func viewDidLoad()
+    func didTapCellItem(item: FeedResult)
 }
 
 protocol AppsInteractorOutputs: AnyObject {
@@ -40,6 +41,10 @@ final class AppsPresenter: AppsPresenterProtocol {
         self.view?.prepareActivityIndicatorView()
         self.interactor.getGroupApps()
         self.interactor.getSocialApps()
+    }
+    
+    func didTapCellItem(item: FeedResult) {
+        self.router.toDetail(id: item.id)
     }
 }
 

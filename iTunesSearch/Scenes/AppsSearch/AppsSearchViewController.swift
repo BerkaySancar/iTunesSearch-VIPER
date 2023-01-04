@@ -118,6 +118,12 @@ extension AppsSearchViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 24
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let selectedID = self.apps[indexPath.row].trackId
+        presenter.didTapCellItem(id: selectedID)
+    }
 }
 
 // MARK: - Search Bar Delegate
