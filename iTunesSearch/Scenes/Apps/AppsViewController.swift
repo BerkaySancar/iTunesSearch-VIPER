@@ -46,6 +46,7 @@ final class AppsViewController: UIViewController {
     }
 }
 
+// MARK: - Apps View Protocol
 extension AppsViewController: AppsViewProtocol {
     func prepareCollectionView() {
         view.addSubview(collectionView)
@@ -118,9 +119,9 @@ extension AppsViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCell.identifier, for: indexPath) as? AppsGroupCell else { return UICollectionViewCell() }
-        
         let group = appGroup[indexPath.row]
         cell.design(appGroup: group)
+        cell.delegate = self
         return cell
     }
     
@@ -132,5 +133,12 @@ extension AppsViewController: UICollectionViewDelegate, UICollectionViewDataSour
 // MARK: - inset for section
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 16, left: 0, bottom: 0, right: 0)
+    }
+}
+
+// MARK: - App Groups Cell Delegate
+extension AppsViewController: AppsGroupCellDelegate {
+    func didTapCellItem(item: FeedResult) {
+        presenter.didTapCellItem(item: item)
     }
 }

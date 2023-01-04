@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SearchResult: Codable {
+struct AppResult: Codable {
     let resultCount: Int
     let results: [App]
 }
@@ -18,4 +18,7 @@ struct App: Codable {
     let averageUserRating: Float?
     let screenshotUrls: [String]
     let artworkUrl100: String
+    let formattedPrice: String
+    let description: String
+    let releaseNotes: String
 }

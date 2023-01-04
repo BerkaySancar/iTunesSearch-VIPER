@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol AppsGroupCellDelegate: AnyObject {
+    func didTapCellItem(item: FeedResult)
+}
+
 final class AppsGroupCell: UICollectionViewCell {
     
     static let identifier = "AppsGroupCell"
+    
+    weak var delegate: AppsGroupCellDelegate?
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -84,5 +90,10 @@ extension AppsGroupCell: UICollectionViewDelegate, UICollectionViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = apps[indexPath.row]
+        self.delegate?.didTapCellItem(item: item)
     }
 }
