@@ -9,6 +9,7 @@ import Foundation
 
 protocol TodayPresenterProtocol: AnyObject {
     
+    func viewDidLoad()
 }
 
 protocol TodayInteractorOutputs: AnyObject {
@@ -26,6 +27,10 @@ final class TodayPresenter: TodayPresenterProtocol {
         self.router = router
         self.interactor = interactor
         self.interactor.delegate = self
+    }
+    
+    func viewDidLoad() {
+        view?.prepareCollectionView()
     }
 }
 

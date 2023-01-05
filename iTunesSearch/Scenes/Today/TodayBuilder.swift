@@ -16,7 +16,7 @@ final class TodayBuilder {
         let presenter = TodayPresenter(view: view, router: router, interactor: interactor)
         
         view.presenter = presenter
-        
+
         return view
     }
 }
