@@ -11,7 +11,7 @@ final class MainTabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
         setViewControllers([
             createNavController(viewController: TodayBuilder.start(), title: "Today", imageName: "doc.text.image"),
             createNavController(viewController: AppsBuilder.start(), title: "Apps", imageName: "square.stack.3d.up.fill"),

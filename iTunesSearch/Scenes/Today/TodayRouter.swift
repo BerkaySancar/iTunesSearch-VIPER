@@ -10,6 +10,7 @@ import UIKit
 
 protocol TodayRouterProtocol: AnyObject {
     
+    func toDetail(id: String)
 }
 
 final class TodayRouter: TodayRouterProtocol {
@@ -18,5 +19,10 @@ final class TodayRouter: TodayRouterProtocol {
     
     init(view: UIViewController) {
         self.view = view
+    }
+    
+    func toDetail(id: String) {
+        let detailVC = AppDetailBuilder.start(id: id)
+        view?.present(detailVC, animated: true)
     }
 }

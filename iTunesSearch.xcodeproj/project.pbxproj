@@ -58,6 +58,10 @@
 		B1C092E32961E1D800CCC985 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C092E22961E1D800CCC985 /* AppDelegate.swift */; };
 		B1C092EC2961E1D800CCC985 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1C092EB2961E1D800CCC985 /* Assets.xcassets */; };
 		B1C092EF2961E1D800CCC985 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1C092ED2961E1D800CCC985 /* LaunchScreen.storyboard */; };
+		B1EAD47D2966D185008ECAE9 /* DailyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EAD47C2966D185008ECAE9 /* DailyListCell.swift */; };
+		B1EAD4802966EA30008ECAE9 /* TodayCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EAD47F2966EA30008ECAE9 /* TodayCellController.swift */; };
+		B1EAD482296709D8008ECAE9 /* TodayFullscreenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EAD481296709D8008ECAE9 /* TodayFullscreenCell.swift */; };
+		B1EAD484296716BB008ECAE9 /* TodayFullscreenHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EAD483296716BB008ECAE9 /* TodayFullscreenHeaderCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +119,10 @@
 		B1C092EB2961E1D800CCC985 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B1C092EE2961E1D800CCC985 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B1C092F02961E1D800CCC985 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1EAD47C2966D185008ECAE9 /* DailyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyListCell.swift; sourceTree = "<group>"; };
+		B1EAD47F2966EA30008ECAE9 /* TodayCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCellController.swift; sourceTree = "<group>"; };
+		B1EAD481296709D8008ECAE9 /* TodayFullscreenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayFullscreenCell.swift; sourceTree = "<group>"; };
+		B1EAD483296716BB008ECAE9 /* TodayFullscreenHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayFullscreenHeaderCell.swift; sourceTree = "<group>"; };
 		B73D5D914B28747C248A1BED /* Pods-iTunesSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iTunesSearch.debug.xcconfig"; path = "Target Support Files/Pods-iTunesSearch/Pods-iTunesSearch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -305,6 +313,7 @@
 		B1AF7D6E2962F66F000EF03D /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				B1EAD47B2966D16B008ECAE9 /* Today */,
 				B15323672965784100A2DA7D /* Apps */,
 				B15323662965783900A2DA7D /* AppDetail */,
 				B15323652965782E00A2DA7D /* AppSearch */,
@@ -404,6 +413,25 @@
 				B1AF7D402962DC05000EF03D /* Scenes */,
 			);
 			path = iTunesSearch;
+			sourceTree = "<group>";
+		};
+		B1EAD47B2966D16B008ECAE9 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				B1EAD47E2966E9CB008ECAE9 /* TodayCellController */,
+				B1EAD47C2966D185008ECAE9 /* DailyListCell.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		B1EAD47E2966E9CB008ECAE9 /* TodayCellController */ = {
+			isa = PBXGroup;
+			children = (
+				B1EAD47F2966EA30008ECAE9 /* TodayCellController.swift */,
+				B1EAD481296709D8008ECAE9 /* TodayFullscreenCell.swift */,
+				B1EAD483296716BB008ECAE9 /* TodayFullscreenHeaderCell.swift */,
+			);
+			path = TodayCellController;
 			sourceTree = "<group>";
 		};
 		B4D39F7214FA03F5A79911EA /* Pods */ = {
@@ -551,9 +579,13 @@
 				B10D0D482965F10F001FC3D2 /* ReviewsModel.swift in Sources */,
 				B153235E29656E6000A2DA7D /* AppDetailPresenter.swift in Sources */,
 				B153236029656E6A00A2DA7D /* AppDetailRouter.swift in Sources */,
+				B1EAD47D2966D185008ECAE9 /* DailyListCell.swift in Sources */,
+				B1EAD484296716BB008ECAE9 /* TodayFullscreenHeaderCell.swift in Sources */,
 				B12DE79829636D210015AE2F /* AppsHeader.swift in Sources */,
 				B153236429656E7C00A2DA7D /* AppDetailBuilder.swift in Sources */,
+				B1EAD4802966EA30008ECAE9 /* TodayCellController.swift in Sources */,
 				B1AF7D5A2962E6BE000EF03D /* AppsViewController.swift in Sources */,
+				B1EAD482296709D8008ECAE9 /* TodayFullscreenCell.swift in Sources */,
 				B10D0D462965E50B001FC3D2 /* ReviewsHorizontalCell.swift in Sources */,
 				B1607DFF29641CAE0000AD9B /* AppsModel.swift in Sources */,
 				B1AF7D6A2962E70C000EF03D /* TodayInteractor.swift in Sources */,

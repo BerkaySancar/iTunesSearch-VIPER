@@ -42,7 +42,6 @@ extension AppsService: AppsServiceProtocol {
 
 // MARK: - fetchGroupApps
     func fetchGroupApps(completion: @escaping (Result<[AppGroup]?, ServiceError>) -> Void) {
-        
         var appGroups: [AppGroup] = []
         var group1: AppGroup? // for correctly row design.
         var group2: AppGroup? // 1-[topFree]
@@ -90,7 +89,7 @@ extension AppsService: AppsServiceProtocol {
     func fetchSocialApps(completion: @escaping (Result<[SocialApp]?, ServiceError>) -> Void) {
         
         let url = "https://api.letsbuildthatapp.com/appstore/social"
-
+        
         NetworkManager.shared.sendRequest(type: [SocialApp].self, url: url, httpMethod: "GET") { results in
             switch results {
             case .success(let apps):

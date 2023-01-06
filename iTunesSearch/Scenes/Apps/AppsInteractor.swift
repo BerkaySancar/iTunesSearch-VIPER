@@ -19,7 +19,7 @@ final class AppsInteractor: AppsInteractorProtocol {
     
     weak var delegate: AppsInteractorOutputs?
     private let service: AppsServiceProtocol
-    private weak var timer: Timer?
+    private let dispatchGroup = DispatchGroup()
     
     init(service: AppsServiceProtocol = AppsService.shared) {
         self.service = service
@@ -31,7 +31,6 @@ final class AppsInteractor: AppsInteractorProtocol {
         self.service.fetchGroupApps { [weak self] results in
             guard let self else { return }
             self.delegate?.endRefreshing()
-            
             switch results {
             case .success(let apps):
                 self.delegate?.showData(appGroup: apps ?? [])
