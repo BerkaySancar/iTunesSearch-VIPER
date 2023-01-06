@@ -10,6 +10,16 @@ import UIKit
 protocol TodayViewProtocol: AnyObject {
     
     func prepareCollectionView()
+    func prepareActivityIndicatorView()
+    func beginRefreshing()
+    func endRefreshing()
+    func dataRefreshed()
+    func onError(message: String)
+    func showData(appGroup: [AppGroup])
+}
+
+protocol DailyListCellDelegate: AnyObject {
+    func selectedApp(id: String)
 }
 
 final class TodayViewController: UIViewController {
@@ -21,7 +31,14 @@ final class TodayViewController: UIViewController {
         return collectionView
     }()
     
-    var presenter: TodayPresenterProtocol!
+    private let activityIndicatorView: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView(style: .large)
+        aiv.hidesWhenStopped = true
+        aiv.color = .label
+        return aiv
+    }()
+    
+    internal var presenter: TodayPresenterProtocol!
     
     private var cellStartingFrame: CGRect?
     private var appFullscreenController: TodayCellController!
@@ -30,6 +47,7 @@ final class TodayViewController: UIViewController {
     private var widthConstraint: NSLayoutConstraint?
     private var heightConstraint: NSLayoutConstraint?
     
+    private var appGroup: [AppGroup] = []
 
 // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -49,8 +67,50 @@ extension TodayViewController: TodayViewProtocol {
         collectionView.backgroundColor = .systemGray6
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayCell.identifier)
+        collectionView.register(DailyListCell.self, forCellWithReuseIdentifier: DailyListCell.identifier)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.anchor(top: view.topAnchor, leading: view.leftAnchor, trailing: view.rightAnchor, bottom: view.bottomAnchor)
+    }
+    
+    func prepareActivityIndicatorView() {
+        view.addSubview(activityIndicatorView)
+        activityIndicatorView.anchor(top: view.topAnchor, leading: view.leftAnchor, trailing: view.rightAnchor, bottom: view.bottomAnchor)
+    }
+    
+    func beginRefreshing() {
+        DispatchQueue.main.async {
+            self.activityIndicatorView.startAnimating()
+        }
+        
+    }
+    
+    func endRefreshing() {
+        DispatchQueue.main.async {
+            self.activityIndicatorView.stopAnimating()
+        }
+    }
+    
+    func dataRefreshed() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func onError(message: String) {
+        DispatchQueue.main.async {
+            self.showError(message: message)
+        }
+    }
+    
+    func showData(appGroup: [AppGroup]) {
+        self.appGroup = appGroup
+    }
+}
+
+// MARK: - DailyListCell Delegate
+extension TodayViewController: DailyListCellDelegate {
+    func selectedApp(id: String) {
+        self.presenter.didSelectApp(id: id)
     }
 }
 
@@ -58,17 +118,21 @@ extension TodayViewController: TodayViewProtocol {
 extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return appGroup.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayCell.identifier, for: indexPath) as? TodayCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DailyListCell.identifier, for: indexPath) as? DailyListCell else { return UICollectionViewCell() }
         cell.backgroundColor = .systemBackground
+        let group = self.appGroup[indexPath.item]
+        cell.design(appGroup: group)
+        cell.delegate = self
+        cell.layer.shadowOpacity = 0.3
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width - 64, height: 450)
+        return .init(width: view.frame.width - 64, height: 440)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -80,8 +144,15 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        presentAnimatedController(indexPath: indexPath)
+    }
+}
+
+// MARK: ANIMATED TODAY CELL CONTROLLER
+extension TodayViewController {
+    fileprivate func presentAnimatedController(indexPath: IndexPath) {
         let fullscreenController = TodayCellController()
+        fullscreenController.appGroup = appGroup[indexPath.row].feed.results
         fullscreenController.dismissHandler = {
             self.handleRemovedView()
         }
@@ -104,11 +175,9 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         self.heightConstraint = fullscreenControllerView.heightAnchor.constraint(equalToConstant: startingFrame.height)
         [topConstraint, leadingConstraint, widthConstraint, heightConstraint].forEach({$0?.isActive = true })
         self.view.layoutIfNeeded()
-        
-//        fullscreenControllerView.frame = startingFrame
+    
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-//            fullscreenControllerView.frame = self.view.frame.standardized
             self.topConstraint?.constant = 0
             self.leadingConstraint?.constant = 0
             self.widthConstraint?.constant = self.view.frame.width

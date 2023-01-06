@@ -34,11 +34,12 @@ final class AppsViewController: UIViewController {
         return aiv
     }()
     
-    var presenter: AppsPresenter!
+    internal var presenter: AppsPresenterProtocol!
     
     private var appGroup: [AppGroup] = []
     private var socialApps: [SocialApp] = []
-    
+   
+// MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         

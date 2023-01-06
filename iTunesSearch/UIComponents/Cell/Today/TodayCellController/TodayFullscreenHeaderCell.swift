@@ -11,7 +11,7 @@ final class TodayFullscreenHeaderCell: UITableViewCell {
     
     static let identifier = "TodayFullscreenHeaderCell"
     
-    private let todayCell = TodayCell()
+    private let dailyListCell = DailyListCell()
     
     internal let closeButton: UIButton = {
         let button = UIButton(type: .system)
@@ -24,8 +24,8 @@ final class TodayFullscreenHeaderCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        addSubview(todayCell)
-        todayCell.anchor(top: topAnchor, leading: leftAnchor, trailing: rightAnchor, bottom: bottomAnchor)
+        contentView.addSubview(dailyListCell)
+        dailyListCell.anchor(top: topAnchor, leading: leftAnchor, trailing: rightAnchor, bottom: bottomAnchor)
         
         contentView.addSubview(closeButton)
         closeButton.translatesAutoresizingMaskIntoConstraints = false
