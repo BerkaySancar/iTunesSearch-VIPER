@@ -13,9 +13,9 @@ final class MainTabBarViewController: UITabBarController {
         super.viewDidLoad()
     
         setViewControllers([
-            createNavController(viewController: MusicBuilder.start(), title: "Music", imageName: "music.note.list"),
             createNavController(viewController: TodayBuilder.start(), title: "Today", imageName: "doc.text.image"),
             createNavController(viewController: AppsBuilder.start(), title: "Apps", imageName: "square.stack.3d.up.fill"),
-            createNavController(viewController: AppsSearchBuilder.start(), title: "Search", imageName: "magnifyingglass")], animated: true)
+            createNavController(viewController: AppsSearchBuilder.start(), title: "Search", imageName: "magnifyingglass"),
+            createNavController(viewController: MusicBuilder.start(), title: "Music", imageName: "music.note.list")], animated: true)
     }
 }
