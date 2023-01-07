@@ -41,6 +41,7 @@ final class AppDetailPresenter: AppDetailPresenterProtocol {
     
     func viewDidLoad() {
         self.view?.prepareCollectionView()
+        self.view?.prepareActivityIndicatorView()
         self.interactor.getDetail()
         self.interactor.getReviews()
     }

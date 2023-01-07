@@ -9,6 +9,7 @@ import UIKit
 
 protocol AppDetailViewProtocol: AnyObject {
     func prepareCollectionView()
+    func prepareActivityIndicatorView()
     func beginRefreshing()
     func endRefreshing()
     func dataRefreshed()
@@ -23,7 +24,14 @@ final class AppDetailViewController: UIViewController {
         return collectionView
     }()
     
-    var presenter: AppDetailPresenterProtocol!
+    private let activityIndicatorView: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView(style: .large)
+        aiv.hidesWhenStopped = true
+        aiv.color = .label
+        return aiv
+    }()
+    
+    internal var presenter: AppDetailPresenterProtocol!
 
 // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -48,12 +56,21 @@ extension AppDetailViewController: AppDetailViewProtocol {
         self.collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leftAnchor, trailing: view.rightAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor)
     }
     
+    func prepareActivityIndicatorView() {
+        view.addSubview(activityIndicatorView)
+        activityIndicatorView.anchor(top: view.topAnchor, leading: view.leftAnchor, trailing: view.rightAnchor, bottom: view.bottomAnchor)
+    }
+    
     func beginRefreshing() {
-        
+        DispatchQueue.main.async {
+            self.activityIndicatorView.startAnimating()
+        }
     }
     
     func endRefreshing() {
-        
+        DispatchQueue.main.async {
+            self.activityIndicatorView.stopAnimating()
+        }
     }
     
     func dataRefreshed() {
