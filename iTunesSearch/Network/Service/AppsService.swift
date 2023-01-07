@@ -9,10 +9,10 @@ import Foundation
 
 protocol AppsServiceProtocol {
     
-    func fetchSearchedApps(searchTerm: String, completion: @escaping (Result<[App], ServiceError>) -> Void)
+    func fetchSearchedApps(searchTerm: String, completion: @escaping (Result<[ResultModel], ServiceError>) -> Void)
     func fetchGroupApps(completion: @escaping (Result<[AppGroup]?, ServiceError>) -> Void)
     func fetchSocialApps(completion: @escaping (Result<[SocialApp]?, ServiceError>) -> Void)
-    func fetchAppDetail(id: String, completion: @escaping (Result<AppResult, ServiceError>) -> Void)
+    func fetchAppDetail(id: String, completion: @escaping (Result<SearchResult, ServiceError>) -> Void)
     func fetchCustomerReviews(id: String, completion: @escaping (Result<Reviews, ServiceError>) -> Void)
 }
 
@@ -27,10 +27,10 @@ final class AppsService {
 extension AppsService: AppsServiceProtocol {
     
 // MARK: - fetchSearchedApps
-    func fetchSearchedApps(searchTerm: String, completion: @escaping (Result<[App], ServiceError>) -> Void) {
+    func fetchSearchedApps(searchTerm: String, completion: @escaping (Result<[ResultModel], ServiceError>) -> Void) {
         let url = "https://itunes.apple.com/search?term=\(searchTerm)&entity=software"
         
-        NetworkManager.shared.sendRequest(type: AppResult.self, url: url, httpMethod: "GET") { results in
+        NetworkManager.shared.sendRequest(type: SearchResult.self, url: url, httpMethod: "GET") { results in
             switch results {
             case .success(let apps):
                 completion(.success(apps.results))
@@ -101,11 +101,11 @@ extension AppsService: AppsServiceProtocol {
     }
     
 // MARK: - fetchAppDetail
-    func fetchAppDetail(id: String, completion: @escaping (Result<AppResult, ServiceError>) -> Void) {
+    func fetchAppDetail(id: String, completion: @escaping (Result<SearchResult, ServiceError>) -> Void) {
         
         let url = "https://itunes.apple.com/lookup?id=\(id)"
         
-        NetworkManager.shared.sendRequest(type: AppResult.self, url: url, httpMethod: "GET") { results in
+        NetworkManager.shared.sendRequest(type: SearchResult.self, url: url, httpMethod: "GET") { results in
             switch results {
             case .success(let app):
                 completion(.success(app))

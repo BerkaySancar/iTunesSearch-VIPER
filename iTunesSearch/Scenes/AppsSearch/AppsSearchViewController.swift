@@ -14,7 +14,7 @@ protocol AppsSearchViewProtocol: AnyObject {
     func beginRefreshing()
     func endRefreshing()
     func dataRefreshed()
-    func showApps(apps: [App])
+    func showApps(apps: [ResultModel])
     func onError(message: String)
 }
 
@@ -41,7 +41,7 @@ final class AppsSearchViewController: UIViewController {
     
     var presenter: AppsSearchPresenterProtocol!
     
-    private var apps: [App] = []
+    private var apps: [ResultModel] = []
     
 // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -84,7 +84,7 @@ extension AppsSearchViewController: AppsSearchViewProtocol {
         }
     }
     
-    func showApps(apps: [App]) {
+    func showApps(apps: [ResultModel]) {
         DispatchQueue.main.async {
             self.apps = apps
         }

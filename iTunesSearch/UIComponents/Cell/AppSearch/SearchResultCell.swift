@@ -83,18 +83,20 @@ final class SearchResultCell: UICollectionViewCell {
         overallStackView.anchor(top: self.topAnchor, leading: self.leftAnchor, trailing: self.rightAnchor, bottom: self.bottomAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 16))
     }
     
-    func design(model: App) {
+    func design(model: ResultModel) {
         self.nameLabel.text = model.trackName
         self.ratingsLabel.text = "\(model.averageUserRating ?? 0.0)"
         self.categoryLabel.text = model.primaryGenreName
         let url = URL(string: model.artworkUrl100)
         self.appIconImageView.sd_setImage(with: url)
-        self.screenshot1ImageView.sd_setImage(with: URL(string: model.screenshotUrls[0]))
-        if model.screenshotUrls.count > 1 {
-            self.screenshot2ImageView.sd_setImage(with: URL(string: model.screenshotUrls[1]))
-        }
-        if model.screenshotUrls.count > 2 {
-            self.screenshot3ImageView.sd_setImage(with: URL(string: model.screenshotUrls[2]))
+        if let screenshotsUrls = model.screenshotUrls {
+            self.screenshot1ImageView.sd_setImage(with: URL(string: screenshotsUrls[0]))
+            if screenshotsUrls.count > 1 {
+                self.screenshot2ImageView.sd_setImage(with: URL(string: screenshotsUrls[1]))
+            }
+            if screenshotsUrls.count > 2 {
+                self.screenshot3ImageView.sd_setImage(with: URL(string: screenshotsUrls[2]))
+            }
         }
     }
 }

@@ -65,7 +65,7 @@ final class AppDetailCell: UICollectionViewCell {
                          padding: .init(top: 20, left: 20, bottom: 0, right: 20))
     }
     
-    internal func design(app: AppResult) {
+    internal func design(app: SearchResult) {
         self.iconImageView.sd_setImage(with: URL(string: app.results.first?.artworkUrl100 ?? ""))
         self.nameLabel.text = app.results.first?.trackName
         self.priceButton.setTitle(app.results.first?.formattedPrice, for: .normal)
