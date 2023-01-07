@@ -36,10 +36,6 @@ final class MusicLoadingFooter: UICollectionReusableView {
         stackView.anchor(top: topAnchor,
                          leading: leftAnchor, trailing: rightAnchor,
                          bottom: bottomAnchor, padding: .init(top: 32, left: 0, bottom: 0, right: 0))
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.widthAnchor.constraint(equalToConstant: 200).isActive = true
-    
-        
         stackView.alignment = .center
     }
 }

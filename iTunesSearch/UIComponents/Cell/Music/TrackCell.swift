@@ -47,7 +47,9 @@ final class TrackCell: UICollectionViewCell {
                                                                           bottom: 16, right: 16))
     }
     
-    internal func design() {
-        
+    internal func design(track: ResultModel) {
+        self.nameLabel.text = track.trackName
+        self.subtitleLabel.text = "\(track.artistName ?? "") • \(track.collectionName ?? "")"
+        self.musicImageView.sd_setImage(with: URL(string: track.artworkUrl100))
     }
 }

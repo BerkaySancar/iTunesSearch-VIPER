@@ -11,7 +11,7 @@ final class PreviewCell: UICollectionViewCell {
     
     static let identifier = "PreviewCell"
     
-    private var app: AppResult?
+    private var app: SearchResult?
     
     private lazy var previewLabel = UILabel(text: "Preview", font: .boldSystemFont(ofSize: 20))
     
@@ -44,7 +44,7 @@ final class PreviewCell: UICollectionViewCell {
         self.collectionView.register(PreviewScreenshotsCell.self, forCellWithReuseIdentifier: PreviewScreenshotsCell.identifier)
     }
     
-    internal func design(app: AppResult) {
+    internal func design(app: SearchResult) {
         self.app = app
         self.collectionView.reloadData()
     }
@@ -54,12 +54,12 @@ final class PreviewCell: UICollectionViewCell {
 extension PreviewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.app?.results.first?.screenshotUrls.count ?? 0
+        return self.app?.results.first?.screenshotUrls?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewScreenshotsCell.identifier, for: indexPath) as? PreviewScreenshotsCell else { return UICollectionViewCell() }
-        cell.design(screenShot: self.app?.results.first?.screenshotUrls[indexPath.item] ?? "")
+        cell.design(screenShot: self.app?.results.first?.screenshotUrls?[indexPath.item] ?? "")
         return cell
     }
     

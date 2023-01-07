@@ -19,7 +19,7 @@ protocol AppsSearchInteractorOutputs: AnyObject {
     func endRefreshing()
     func dataRefreshed()
     func onError(message: String)
-    func showApps(apps: [App])
+    func showApps(apps: [ResultModel])
 }
 
 final class AppsSearchPresenter: AppsSearchPresenterProtocol {
@@ -63,7 +63,7 @@ extension AppsSearchPresenter: AppsSearchInteractorOutputs {
         self.view?.dataRefreshed()
     }
     
-    func showApps(apps: [App]) {
+    func showApps(apps: [ResultModel]) {
         self.view?.showApps(apps: apps)
     }
     

@@ -23,6 +23,7 @@
 		B1475E9E296869350036B24E /* MusicBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1475E9D296869350036B24E /* MusicBuilder.swift */; };
 		B1475EA129686F760036B24E /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1475EA029686F760036B24E /* TrackCell.swift */; };
 		B1475EA32969901A0036B24E /* MusicLoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1475EA22969901A0036B24E /* MusicLoadingFooter.swift */; };
+		B1475EA5296995170036B24E /* MusicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1475EA4296995160036B24E /* MusicService.swift */; };
 		B153235C29656E4900A2DA7D /* AppDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B153235B29656E4900A2DA7D /* AppDetailViewController.swift */; };
 		B153235E29656E6000A2DA7D /* AppDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B153235D29656E6000A2DA7D /* AppDetailPresenter.swift */; };
 		B153236029656E6A00A2DA7D /* AppDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B153235F29656E6A00A2DA7D /* AppDetailRouter.swift */; };
@@ -89,6 +90,7 @@
 		B1475E9D296869350036B24E /* MusicBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBuilder.swift; sourceTree = "<group>"; };
 		B1475EA029686F760036B24E /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		B1475EA22969901A0036B24E /* MusicLoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicLoadingFooter.swift; sourceTree = "<group>"; };
+		B1475EA4296995160036B24E /* MusicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicService.swift; sourceTree = "<group>"; };
 		B153235B29656E4900A2DA7D /* AppDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailViewController.swift; sourceTree = "<group>"; };
 		B153235D29656E6000A2DA7D /* AppDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailPresenter.swift; sourceTree = "<group>"; };
 		B153235F29656E6A00A2DA7D /* AppDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailRouter.swift; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 			isa = PBXGroup;
 			children = (
 				B1AF7D822963144D000EF03D /* AppsService.swift */,
+				B1475EA4296995160036B24E /* MusicService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -625,6 +628,7 @@
 				B153236429656E7C00A2DA7D /* AppDetailBuilder.swift in Sources */,
 				B1475EA129686F760036B24E /* TrackCell.swift in Sources */,
 				B1475EA32969901A0036B24E /* MusicLoadingFooter.swift in Sources */,
+				B1475EA5296995170036B24E /* MusicService.swift in Sources */,
 				B1EAD4802966EA30008ECAE9 /* TodayCellController.swift in Sources */,
 				B1AF7D5A2962E6BE000EF03D /* AppsViewController.swift in Sources */,
 				B1EAD482296709D8008ECAE9 /* TodayFullscreenCell.swift in Sources */,
