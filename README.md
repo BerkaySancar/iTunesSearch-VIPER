@@ -21,7 +21,7 @@
 - Git
 - Git Branching
 
-## Reference Tutorial
+## Reference Tutorial with MVC Pattern
 - [LetsBuildThatApp](https://www.letsbuildthatapp.com/courses/AppStore%20JSON%20APIs)
 
 ## Images
