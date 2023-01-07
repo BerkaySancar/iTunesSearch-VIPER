@@ -11,6 +11,7 @@ protocol AppsSearchViewProtocol: AnyObject {
     
     func prepareCollectionView()
     func prepareSearchController()
+    func prepareActivityIndicatorView()
     func beginRefreshing()
     func endRefreshing()
     func dataRefreshed()
@@ -37,6 +38,13 @@ final class AppsSearchViewController: UIViewController {
         label.text = "Search something... 🔍"
         label.textAlignment = .center
         return label
+    }()
+    
+    private let activityIndicatorView: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView(style: .large)
+        aiv.hidesWhenStopped = true
+        aiv.color = .label
+        return aiv
     }()
     
     var presenter: AppsSearchPresenterProtocol!
@@ -70,12 +78,21 @@ extension AppsSearchViewController: AppsSearchViewProtocol {
         self.searchController.searchBar.delegate = self
     }
     
+    func prepareActivityIndicatorView() {
+        view.addSubview(activityIndicatorView)
+        activityIndicatorView.anchor(top: view.topAnchor, leading: view.leftAnchor, trailing: view.rightAnchor, bottom: view.bottomAnchor)
+    }
+    
     func beginRefreshing() {
-       
+        DispatchQueue.main.async {
+            self.activityIndicatorView.startAnimating()
+        }
     }
     
     func endRefreshing() {
-
+        DispatchQueue.main.async {
+            self.activityIndicatorView.stopAnimating()
+        }
     }
     
     func dataRefreshed() {
